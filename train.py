@@ -1,9 +1,7 @@
 from dataset import TrainDataset, TestDataset
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-from skimage.feature import SIFT, hog
 from sklearn.svm import SVC
-import joblib
+from skimage.feature import hog
 import cv2
 import numpy as np
 import torch
@@ -30,48 +28,16 @@ def traditional_method(feature='hog', classification='svm'):
         features = np.array(features)
         labels = np.array(labels)
     if feature == 'sift':
-        """sift = SIFT()
-        max_len = 0
-        for X, y in data:
-            X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
-            sift.detect_and_extract(X)
-            x = sift.descriptors.reshape(-1).astype(np.float64)
-            if x.shape[0] > max_len:
-                max_len = x.shape[0]
-            features.append(x)
-            labels.append(y)
-        features = np.array(features)
-        features_ = np.array(np.resize(features[0], (max_len))).reshape(1,-1)
-        for i in range(len(features)):
-            features[i] = np.resize(features[i],(1,max_len))
-            if i != 0:
-                features_ = np.append(features_,features[i],axis=0)
-        for X in valid_data:
-            X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
-            sift.detect_and_extract(X)
-            x = sift.descriptors.reshape(-1).astype(np.float64)
-            valid_features.append(x)
-        valid_features = np.array(valid_features)
-        valid_features_ = np.array(
-            np.resize(valid_features[0], (max_len))).reshape(1, -1)
-        for i in range(len(valid_features)):
-            valid_features[i] = np.resize(valid_features[i], (1, max_len))
-            if i != 0:
-               valid_features_ = np.append(
-                   valid_features_, valid_features[i], axis=0)
-        labels = np.array(labels)
-        features = features_  
-        valid_features = valid_features_"""
-        sift = cv2.SIFT.create(100)
+        sift = cv2.SIFT.create(200)
         for X, y in data:
             X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
             _, des = sift.detectAndCompute(X, None)
-            features.append(np.resize(des, 12800))
+            features.append(np.resize(des, 25600))
             labels.append(y)
         for X in valid_data:
             X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
             _, des = sift.detectAndCompute(X, None)
-            valid_features.append(np.resize(des,12800))
+            valid_features.append(np.resize(des,25600))
         features = np.array(features)
         labels = np.array(labels)
     
@@ -91,8 +57,8 @@ def traditional_method(feature='hog', classification='svm'):
         + classification+'_'+'submission.csv', index=False)
 
 
-def train(model, loss_fn, optimizer,batch_szie=32, num_epochs=10,device='cpu', verbose=True):
-    data = TrainDataset()
+def train(model, loss_fn, optimizer,batch_szie=32, num_epochs=10,device='cpu', verbose=True,transform=None):
+    data = TrainDataset(transform=transform)
     train_dataset, test_dataset = train_test_split(data, test_size=0.2)
     train_dataloader = DataLoader(train_dataset,batch_size=batch_szie,shuffle=True,num_workers=4)
     test_dataloader = DataLoader(test_dataset,batch_size=batch_szie,shuffle=False,num_workers=4)
@@ -109,7 +75,7 @@ def train(model, loss_fn, optimizer,batch_szie=32, num_epochs=10,device='cpu', v
             loss.backward()
             optimizer.step()
             if verbose is True:
-                if i % 100 == 0:
+                if i % 10 == 0:
                     loss, current = loss.item(), i * len(X)
                     print(f"loss: {loss:>7f}    [{current:>5d}/{size:>5d}]")
         if verbose is True:
@@ -126,7 +92,6 @@ def test(dataloader, model, loss_fn, device='cpu', verbose=True):
             y = y.to(device)
             pred = model(X)
             test_loss += loss_fn(pred, y).item()
-            model.reconstruct()
             correct += (pred.argmax(1) == y).type(torch.float32).sum().item()
 
         test_loss /= batch_num
@@ -134,3 +99,20 @@ def test(dataloader, model, loss_fn, device='cpu', verbose=True):
         if verbose is True:
             print(
                 f"Test Error: Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
+
+def get_results(model,device='cpu',transform=None):
+    valid_data = TestDataset(transform=transform)
+    valid_dataloader = DataLoader(dataset=valid_data,batch_size=32)
+    result = []
+    for X in valid_dataloader:
+        X = X.to(device)
+        pred = model(X)
+        
+        pred = pred.argmax(1)
+        for i in range(len(pred)):
+            result.append(target_names[pred[i]])
+    valid_data.df['species'] = result
+    valid_data.df['file'] = valid_data.df['image_id']
+    valid_data.df[['file', 'species']].to_csv(
+        'submission/'+model._get_name()+'_'+'submission.csv', index=False)
+        

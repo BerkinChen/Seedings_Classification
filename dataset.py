@@ -46,7 +46,7 @@ class Data():
 
 
 class TrainDataset(Dataset):
-    def __init__(self, is_transform=True, transform=None):
+    def __init__(self, transform=None):
         df = Data(is_train=True).data
         self.file_path = df['image_path'].values
         self.df = df  # .drop(['image_path'], axis=1)
@@ -62,10 +62,9 @@ class TrainDataset(Dataset):
         file_path = f'{self.file_path[idx]}'
         image = cv2.imread(file_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image,(256,256))
+        image = cv2.resize(image,(224,224))
         if self.transform:
-            augmented = self.transform(image=image)
-            image = augmented['image']
+            image = self.transform(image)
         label = torch.tensor(self.labels[idx]).long()
         return image, label
     
@@ -86,8 +85,7 @@ class TestDataset(Dataset):
         file_path = f'{self.file_path[idx]}'
         image = cv2.imread(file_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image, (256, 256))
+        image = cv2.resize(image, (224, 224))
         if self.transform:
-            augmented = self.transform(image=image)
-            image = augmented['image']
+            image = self.transform(image)
         return image
