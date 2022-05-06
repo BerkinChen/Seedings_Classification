@@ -66,12 +66,12 @@ def traditional_method(feature='hog', classification='svm'):
         for X, y in data:
             X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
             _, des = sift.detectAndCompute(X, None)
-            features.append(np.resize(des.reshape(-1), 12800))
+            features.append(np.resize(des, 12800))
             labels.append(y)
         for X in valid_data:
             X = cv2.cvtColor(X, cv2.COLOR_RGB2GRAY)
             _, des = sift.detectAndCompute(X, None)
-            valid_features.append(np.resize(des.reshape(-1),12800))
+            valid_features.append(np.resize(des,12800))
         features = np.array(features)
         labels = np.array(labels)
     
