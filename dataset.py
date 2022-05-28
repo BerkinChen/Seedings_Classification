@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import cv2
 import torch
+from PIL import Image
 from torchvision import transforms
 
 
@@ -60,11 +61,15 @@ class TrainDataset(Dataset):
     def __getitem__(self, idx):
 
         file_path = f'{self.file_path[idx]}'
-        image = cv2.imread(file_path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image,(224,224))
         if self.transform:
+            image = cv2.imread(file_path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (224, 224))
             image = self.transform(image)
+        else:
+            image = cv2.imread(file_path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (224, 224))
         label = torch.tensor(self.labels[idx]).long()
         return image, label
     
@@ -83,9 +88,13 @@ class TestDataset(Dataset):
     def __getitem__(self, idx):
 
         file_path = f'{self.file_path[idx]}'
-        image = cv2.imread(file_path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image, (224, 224))
         if self.transform:
+            image = cv2.imread(file_path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (224, 224))
             image = self.transform(image)
+        else:
+            image = cv2.imread(file_path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            image = cv2.resize(image, (224, 224))
         return image

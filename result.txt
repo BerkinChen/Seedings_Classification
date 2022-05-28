@@ -1,0 +1,108 @@
+MLP Adam 0.81612
+MLP Adam -dropout 0.84130
+MLP Adam -weightdecay 0.80982
+MLP SGD 0.78589
+MLP SGD -dropout 0.82619
+MLP SGD -weightdecay 0.76574
+MLP Adagrad 0.81612
+MLP Adagrad -dropout 0.83879
+MLP Adagrad -weightdecay 0.76648
+Resnet Adam 0.93073
+Resnet Adam -dropout 0.93073
+Resnet Adam -weightdecay 0.92443
+Resnet SGD 0.93198
+Resnet SGD -dropout 0.93198
+Resnet SGD -weightdecay 0.92443
+Resnet Adagrad 0.93954
+Resnet Adagrad -dropout 0.93954
+Resnet Adagrad -weightdecay 0.93576
+Vgg Adam 0.83501
+Vgg Adam -dropout 0.82367
+Vgg Adam -weightdecay 0.81738
+Vgg SGD 0.93576
+Vgg SGD -dropout 0.92443
+Vgg SGD -weightdecay 0.93702
+Vgg Adagrad 0.92191
+Vgg Adagrad -dropout 0.93828
+Vgg Adagrad -weightdecay 0.90931
+MLP Adam normalize 0.75818
+MLP Adam -dropout normalize 0.82493
+MLP Adam -weightdecay normalize 0.79596
+MLP SGD normalize 0.76574
+MLP SGD -dropout normalize 0.80352
+MLP SGD -weightdecay normalize 0.69332
+MLP Adagrad normalize 0.75440
+MLP Adagrad -dropout normalize 0.74181
+MLP Adagrad -weightdecay normalize 0.72418
+Resnet Adam normalize 0.94206
+Resnet Adam -dropout normalize 0.94206
+Resnet Adam -weightdecay normalize 0.91309
+Resnet SGD normalize 0.93450
+Resnet SGD -dropout normalize 0.93450
+Resnet SGD -weightdecay normalize 0.94836
+Resnet Adagrad normalize 0.94710
+Resnet Adagrad -dropout normalize 0.94710
+Resnet Adagrad -weightdecay normalize 0.94584
+Vgg Adam normalize 0.86397
+Vgg Adam -dropout normalize 0.84508
+Vgg Adam -weightdecay normalize 0.85390
+Vgg SGD normalize 0.93576
+Vgg SGD -dropout normalize 0.92821
+Vgg SGD -weightdecay normalize 0.93450
+Vgg Adagrad normalize 0.91939
+Vgg Adagrad -dropout normalize 0.94584
+Vgg Adagrad -weightdecay normalize 0.93450
+MLP Adam randomflip 0.79219
+MLP Adam -dropout randomflip 0.80100
+MLP Adam -weightdecay randomflip 0.81738
+MLP SGD randomflip 0.77329
+MLP SGD -dropout randomflip 0.81108
+MLP SGD -weightdecay randomflip 0.72795
+MLP Adagrad randomflip 0.76826
+MLP Adagrad -dropout randomflip 0.80982
+MLP Adagrad -weightdecay randomflip 0.81486
+Resnet Adam randomflip 0.93828
+Resnet Adam -dropout randomflip 0.93828
+Resnet Adam -weightdecay randomflip 0.91939
+Resnet SGD randomflip 0.92821
+Resnet SGD -dropout randomflip 0.92821
+Resnet SGD -weightdecay randomflip 0.92443
+Resnet Adagrad randomflip 0.94080
+Resnet Adagrad -dropout randomflip 0.94080
+Resnet Adagrad -weightdecay randomflip 0.94080
+Vgg Adam randomflip 0.89798
+Vgg Adam -dropout randomflip 0.84886
+Vgg Adam -weightdecay randomflip 0.84505
+Vgg SGD randomflip 0.92821
+Vgg SGD -dropout randomflip 0.91561
+Vgg SGD -weightdecay randomflip 0.92317
+Vgg Adagrad randomflip 0.89798
+Vgg Adagrad -dropout randomflip 0.93198
+Vgg Adagrad -weightdecay randomflip 0.91678
+MLP Adam randomcrop 0.59193
+MLP Adam -dropout randomcrop 0.62846
+MLP Adam -weightdecay randomcrop 0.54785
+MLP SGD randomcrop 0.53022
+MLP SGD -dropout randomcrop 0.63098
+MLP SGD -weightdecay randomcrop 0.53022
+MLP Adagrad randomcrop 0.65365
+MLP Adagrad -dropout randomcrop 0.63602
+MLP Adagrad -weightdecay randomcrop 0.59823
+Resnet Adam randomcrop 0.84256
+Resnet Adam -dropout randomcrop 0.84256
+Resnet Adam -weightdecay randomcrop 0.83249
+Resnet SGD randomcrop 0.85138
+Resnet SGD -dropout randomcrop 0.85138
+Resnet SGD -weightdecay randomcrop 0.86020
+Resnet Adagrad randomcrop 0.83627
+Resnet Adagrad -dropout randomcrop 0.83627
+Resnet Adagrad -weightdecay randomcrop 0.83571
+Vgg Adam randomcrop 0.72544
+Vgg Adam -dropout randomcrop 0.52265
+Vgg Adam -weightdecay randomcrop 0.67371
+Vgg SGD randomcrop 0.80226
+Vgg SGD -dropout randomcrop 0.81486
+Vgg SGD -weightdecay randomcrop 0.81045
+Vgg Adagrad randomcrop 0.79596
+Vgg Adagrad -dropout randomcrop 0.83879
+Vgg Adagrad -weightdecay randomcrop 0.77833
